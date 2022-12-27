@@ -48,7 +48,7 @@ class M_profile extends CI_Model
 		$this->db->trans_start();
 		$this->db->where('user_id', $user_id);
 		$this->db->update('users', array(
-			'user_nama'       => $user_nama,
+			'user_nama'       => ucwords($user_nama),
 			'user_email'      => $user_email,
 			'user_image'      => 'https://ui-avatars.com/api/?name=' . $user_nama . '',
 		));

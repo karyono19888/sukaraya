@@ -39,7 +39,7 @@ class M_kelas extends CI_Model
 		}else{
 			 $this->db->trans_start();
 			 $this->db->insert('m_kelas',array(
-				  'kelas_nama'      => $kelas_nama,
+				'kelas_nama'      => ucwords($kelas_nama),
 				  'kelas_status'    => $kelas_status,
 				  'created_at'      => time(),
 			 ));
@@ -90,15 +90,10 @@ class M_kelas extends CI_Model
 		$kelas_id 		= $this->input->post('kelas_id');
 		$kelas_nama 	= $this->input->post('kelas_nama');
 		$kelas_status 	= $this->input->post('kelas_status');
-
-		$row = $this->db->get_where('m_kelas',['kelas_nama'=> $kelas_nama])->num_rows();
-		if($row > 0){
-				return json_encode(array('success'=>false, 'msg'=>'Gagal, kelas sudah ada!'));
-		}else{
 			$this->db->trans_start();
 			$this->db->where('kelas_id',$kelas_id);
 			$this->db->update('m_kelas',array(
-				'kelas_nama'      => $kelas_nama,
+			'kelas_nama'      => ucwords($kelas_nama),
 				'kelas_status'    => $kelas_status,
 				'created_at'      => time(),
 			));
@@ -106,8 +101,7 @@ class M_kelas extends CI_Model
 			if($this->db->trans_status() === FALSE){
 				return json_encode(array('success'=>false, 'msg'=>'Edit data gagal!'));
 			}else {
-				return json_encode(array('success'=>true, 'msg'=>'Edit data berhasil!'));
-			}
+			return json_encode(array('success' => true, 'msg' => 'Edit data berhasil!'));
 		}
 
 	}

@@ -52,7 +52,7 @@ class M_user extends CI_Model
 			 $this->db->insert('users',array(
 				  'user_role'       => $user_role,
 				  'user_username'   => $user_username,
-				  'user_nama'       => $user_nama,
+				'user_nama'       => ucwords($user_nama),
 				  'user_password'   => password_hash($user_password,PASSWORD_DEFAULT),
 				  'user_image'      => 'https://ui-avatars.com/api/?name=' . $user_nama . '',
 				  'user_status'     => $user_status,
@@ -126,7 +126,7 @@ class M_user extends CI_Model
 				$this->db->update('users', array(
 					'user_role'       => $user_role,
 					'user_username'   => $user_username,
-					'user_nama'       => $user_nama,
+					'user_nama'       => ucwords($user_nama),
 					'user_password'   => password_hash($user_password,PASSWORD_DEFAULT),
 					'user_image'      => 'https://ui-avatars.com/api/?name=' . $user_nama . '',
 					'user_status'     => $user_status,

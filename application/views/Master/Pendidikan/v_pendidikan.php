@@ -1,8 +1,8 @@
-<link rel="stylesheet" href="<?= base_url('assets/');?>css/vendor/datatables.min.css" />
+<link rel="stylesheet" href="<?= base_url('assets/'); ?>css/vendor/datatables.min.css" />
 
-<link rel="stylesheet" href="<?= base_url('assets/');?>css/vendor/select2.min.css" />
+<link rel="stylesheet" href="<?= base_url('assets/'); ?>css/vendor/select2.min.css" />
 
-<link rel="stylesheet" href="<?= base_url('assets/');?>css/vendor/select2-bootstrap4.min.css" />
+<link rel="stylesheet" href="<?= base_url('assets/'); ?>css/vendor/select2-bootstrap4.min.css" />
 
 <body>
 	<div id="root">
@@ -47,7 +47,7 @@
 														<div class="d-flex align-items-center lh-1-25">Total Pendidikan</div>
 													</div>
 													<div class="col-12 col-xl-auto">
-														<div class="cta-2 text-primary">12</div>
+														<div class="cta-2 text-primary"><?= $total; ?></div>
 													</div>
 												</div>
 											</div>
@@ -70,7 +70,7 @@
 														<div class="d-flex align-items-center lh-1-25">Aktif</div>
 													</div>
 													<div class="col-12 col-xl-auto">
-														<div class="cta-2 text-primary">12</div>
+														<div class="cta-2 text-primary"><?= $aktif; ?></div>
 													</div>
 												</div>
 											</div>
@@ -93,7 +93,7 @@
 														<div class="d-flex align-items-center lh-1-25">Tidak Aktif</div>
 													</div>
 													<div class="col-12 col-xl-auto">
-														<div class="cta-2 text-primary">12</div>
+														<div class="cta-2 text-primary"><?= $tidakaktif; ?></div>
 													</div>
 												</div>
 											</div>
@@ -108,7 +108,7 @@
 
 				<!-- Content Start -->
 				<button type="button" class="btn btn-outline-primary btn-icon btn-icon-start mb-3 Tambah"
-					data-bs-toggle="modal" data-bs-target="#ModalUser">
+					data-bs-toggle="modal" data-bs-target="#ModalKelas">
 					<i data-acorn-icon="plus"></i>
 					<span>Tambah Baru</span>
 				</button>
@@ -122,17 +122,41 @@
 										<thead>
 											<tr>
 												<th class="text-muted text-uppercase">No</th>
-												<th class="text-muted text-uppercase">ID</th>
-												<th class="text-muted text-uppercase">Nama</th>
-												<th class="text-muted text-uppercase">Kelas</th>
-												<th class="text-muted text-uppercase">Kelompok</th>
-												<th class="text-muted text-uppercase">Foto</th>
+												<th class="text-muted text-uppercase">Pendidikan</th>
 												<th class="text-muted text-uppercase">Status</th>
 												<th class="text-muted text-uppercase">Aksi</th>
 											</tr>
 										</thead>
 										<tbody>
-
+											<?php
+											$i = 1;
+											foreach ($data->result_array() as $a) :
+											?>
+											<tr>
+												<td><?= $i++; ?></td>
+												<td><?= $a['pend_nama']; ?></td>
+												<td>
+													<?php if ($a['pend_status'] == "Aktif") : ?>
+													<span class="badge bg-primary text-uppercase"><?= $a['pend_status']; ?></span>
+													<?php else : ?>
+													<span class="badge bg-danger text-uppercase"><?= $a['pend_status']; ?></span>
+													<?php endif; ?>
+												</td>
+												<td>
+													<button class="btn btn-sm btn-icon btn-icon-start btn-outline-warning ms-1 Edit"
+														type="button" data-bs-toggle="modal" data-bs-target="#ModalKelas"
+														data-id="<?= $a['pend_id']; ?>">
+														<i data-acorn-icon="edit-square" data-acorn-size="15"></i>
+														<span class="d-none d-xxl-inline-block">Edit</span>
+													</button>
+													<button class="btn btn-sm btn-icon btn-icon-start btn-outline-danger ms-1 Hapus"
+														type="button" data-id="<?= $a['pend_id']; ?>">
+														<i data-acorn-icon="bin" data-acorn-size="15"></i>
+														<span class="d-none d-xxl-inline-block">Delete</span>
+													</button>
+												</td>
+											</tr>
+											<?php endforeach; ?>
 										</tbody>
 									</table>
 								</div>
@@ -143,42 +167,28 @@
 				</div>
 				<!-- Content End -->
 			</div>
-			<div class="modal fade" id="ModalUser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+			<div class="modal fade" id="ModalKelas" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
 				role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title" id="titleTambah">Tambah User Baru</h5>
-							<h5 class="modal-title" id="titleEdit">Edit User</h5>
-							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							<h5 class="modal-title" id="titleTambah">Tambah Kelas Baru</h5>
+							<h5 class="modal-title" id="titleEdit">Edit Kelas</h5>
+							<button type="button" class="btn-close CloseModal" data-bs-dismiss="modal"
+								aria-label="Close"></button>
 						</div>
 						<div class="modal-body">
 							<form method="POST" id="formModalUser">
 								<div class="mb-1">
-									<label class="form-label">Role Akses</label>
-									<select id="user_role" name="user_role" class="form-control" select2>
-										<option value="">- Pilih -</option>
-									</select>
-								</div>
-								<div class="mb-1">
-									<label class="form-label">Nama</label>
-									<input type="text" class="form-control" id="user_nama" name="user_nama"
-										placeholder="Nama Lengkap" />
-								</div>
-								<div class="mb-1">
-									<label class="form-label">Username</label>
-									<input type="text" class="form-control" id="user_username" name="user_username"
-										placeholder="username" />
-								</div>
-								<div class="mb-1">
-									<label class="form-label">Password</label>
-									<input type="password" class="form-control " id="user_password" name="user_password"
-										placeholder="********" />
+									<label class="form-label">Pendidikan</label>
+									<input type="hidden" name="pend_id" id="pend_id">
+									<input type="text" class="form-control" id="pend_nama" name="pend_nama"
+										placeholder="Contoh : SMA/SMK" />
 								</div>
 								<div class="mb-1">
 									<label class="form-label">Status</label>
-									<select id="user_status" name="user_status" class="form-control">
-										<option selected value="Aktif">Aktif</option>
+									<select id="pend_status" name="pend_status" class="form-control">
+										<option value="Aktif">Aktif</option>
 										<option value="Tidak Aktif">Tidak Aktif</option>
 									</select>
 								</div>
@@ -194,13 +204,12 @@
 		</main>
 		<?php $this->load->view('Template/v_footer');  ?>
 		<?php $this->load->view('Template/v_bottom-footer');  ?>
-		<script src="<?= base_url('assets/');?>js/vendor/datatables.min.js"></script>
-		<script src="<?= base_url('assets/');?>js/vendor/select2.full.min.js"></script>
+		<script src="<?= base_url('assets/'); ?>js/vendor/datatables.min.js"></script>
+		<script src="<?= base_url('assets/'); ?>js/vendor/select2.full.min.js"></script>
 		<script>
 		$(document).ready(function() {
 			$('#table').DataTable();
 		});
-
 
 		$(document).on("click", ".Tambah", function() {
 			$('#titleEdit').hide();
@@ -214,7 +223,7 @@
 				let data = $('#formModalUser').serialize();
 				$.ajax({
 					type: 'POST',
-					url: '<?= site_url('Master/Users/Tambah') ?>',
+					url: '<?= site_url('Master/Pendidikan/Tambah') ?>',
 					data: data,
 					success: function(response) {
 						var data = JSON.parse(response);
@@ -236,7 +245,7 @@
 							});
 						}
 						setTimeout(() => {
-							window.location.assign('<?= site_url("Master/Users") ?>');
+							window.location.assign('<?= site_url("Master/Pendidikan") ?>');
 						}, 2000);
 					}
 				});
@@ -244,25 +253,101 @@
 		});
 
 		function validasi() {
-			let user_role = document.getElementById("user_role").value;
-			let user_nama = document.getElementById("user_nama").value;
-			let user_username = document.getElementById("user_username").value;
-			let user_password = document.getElementById("user_password").value;
-			let user_status = document.getElementById("user_status").value;
-			if ((user_role == "") || (user_username == "") || (user_nama == "") || (user_password ==
-					"") || (user_status ==
-					"")) {
-				if (user_status == "") {
+			let pend_nama = document.getElementById("pend_nama").value;
+			let pend_status = document.getElementById("pend_status").value;
+			if ((pend_nama == "") || (pend_status == "")) {
+				if (pend_status == "") {
 					notif("Status");
 				}
-				if (user_password == "") {
-					notif("Password");
+				if (pend_nama == "") {
+					notif("Kelas");
 				}
-				if (user_username == "") {
-					notif("Username");
+			} else {
+				return true;
+			}
+		}
+
+		$(document).on("click", ".Edit", function() {
+			$('#titleEdit').show();
+			$('#ModalButtonEdit').show();
+			$('#titleTambah').hide();
+			$('#ModalButtonSimpan').hide();
+			let id = $(this).data('id');
+			let roleNama = "";
+			$.ajax({
+				type: 'POST',
+				url: '<?= site_url('Master/Pendidikan/View'); ?>',
+				data: {
+					id: id
+				},
+				success: function(response) {
+					let data = JSON.parse(response);
+					if (data.success) {
+						$('#pend_id').val(data.pend_id);
+						$('#pend_nama').val(data.pend_nama);
+						$('#pend_status').val(data.pend_status);
+					} else {
+						Swal.fire({
+							icon: 'warning',
+							title: 'Warning',
+							text: data.msg,
+							showConfirmButton: false,
+							timer: 1500
+						});
+					}
 				}
-				if (user_role == "") {
-					notif("User Akses");
+			});
+		});
+
+		$(document).on("click", ".CloseModal", function() {
+			$('#pend_id').val("");
+			$('#pend_nama').val("");
+			$('#pend_status').val("");
+		});
+
+		$(document).on("click", "#ModalButtonEdit", function() {
+			if (validasiupdate()) {
+				let data = $('#formModalUser').serialize();
+				$.ajax({
+					type: 'POST',
+					url: '<?= site_url('Master/Pendidikan/Edit') ?>',
+					data: data,
+					success: function(response) {
+						var data = JSON.parse(response);
+						if (data.success) {
+							Swal.fire({
+								icon: 'success',
+								title: 'Success',
+								text: data.msg,
+								showConfirmButton: false,
+								timer: 1500
+							});
+						} else {
+							Swal.fire({
+								icon: 'error',
+								title: 'Error',
+								text: data.msg,
+								showConfirmButton: false,
+								timer: 1500
+							});
+						}
+						setTimeout(() => {
+							window.location.assign('<?= site_url("Master/Pendidikan") ?>');
+						}, 1500);
+					}
+				});
+			}
+		});
+
+		function validasiupdate() {
+			let pend_nama = document.getElementById("pend_nama").value;
+			let pend_status = document.getElementById("pend_status").value;
+			if ((pend_nama == "") || (pend_status == "")) {
+				if (pend_status == "") {
+					notif("Status");
+				}
+				if (pend_nama == "") {
+					notif("Kelas");
 				}
 			} else {
 				return true;
@@ -292,7 +377,7 @@
 				if (result.isConfirmed) {
 					$.ajax({
 						type: 'POST',
-						url: '<?= site_url('Master/Users/Hapus') ?>',
+						url: '<?= site_url('Master/Pendidikan/Hapus') ?>',
 						data: {
 							id: id
 						},
@@ -316,7 +401,7 @@
 								});
 							}
 							setTimeout(() => {
-								window.location.assign('<?= site_url("Master/Users") ?>');
+								window.location.assign('<?= site_url("Master/Pendidikan") ?>');
 							}, 2000);
 						}
 					});

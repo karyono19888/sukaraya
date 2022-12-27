@@ -2,7 +2,7 @@
 	<div class="nav-content d-flex">
 		<!-- Logo Start -->
 		<div class="logo position-relative">
-			<a href="<?= base_url();?>">
+			<a href="<?= base_url(); ?>">
 				<!-- Logo can be added directly -->
 				<h1 style="color: white;"><span style="font-size: 42px; font-weight:bold;">𝕾</span>𝖚𝖐𝖆𝖗𝖆𝖞𝖆
 				</h1>
@@ -15,8 +15,8 @@
 		<div class="user-container d-flex">
 			<a href="#" class="d-flex user position-relative" data-bs-toggle="dropdown" aria-haspopup="true"
 				aria-expanded="false">
-				<?php $img = $this->db->get_where('users',['user_id'=>$this->session->userdata('user_id')])->row_array(); ?>
-				<img class="profile" alt="profile" src="<?= $img['user_image'];?>" />
+				<?php $img = $this->db->get_where('users', ['user_id' => $this->session->userdata('user_id')])->row_array(); ?>
+				<img class="profile" alt="profile" src="<?= $img['user_image']; ?>" />
 				<div class="name"><?= $this->session->userdata('user_nama'); ?></div>
 			</a>
 			<div class="dropdown-menu dropdown-menu-end user-menu wide">
@@ -24,7 +24,7 @@
 					<div class="col-6 ps-1 pe-1">
 						<ul class="list-unstyled">
 							<li>
-								<a href="<?= base_url('Profile');?>"
+								<a href="<?= base_url('Profile'); ?>"
 									class="<?= $this->uri->segment(1) == "Profile"  ? 'active' : '' ?>">
 									<i data-acorn-icon="user" class="me-2" data-acorn-size="17"></i>
 									<span class="align-middle">Profile</span>
@@ -63,13 +63,13 @@
 			<?php $user_role = $this->session->userdata('user_role'); ?>
 			<ul id="menu" class="menu">
 				<li>
-					<a href="<?= base_url('Dashboards')?>" data-href="#"
+					<a href="<?= base_url('Dashboards') ?>" data-href="#"
 						class="<?= $this->uri->segment(1) == "Dashboards"  ? 'active' : '' ?>">
 						<i data-acorn-icon="home" class="icon" data-acorn-size="18"></i>
 						<span class="label">Dashboards</span>
 					</a>
 				</li>
-				<?php if($user_role == 1) :?>
+				<?php if ($user_role == 1) : ?>
 				<li>
 					<a href="#apps" data-href="#" class="<?= $this->uri->segment(1) == "Master"  ? 'active' : '' ?>">
 						<i data-acorn-icon="screen" class="icon" data-acorn-size="18"></i>
@@ -77,39 +77,58 @@
 					</a>
 					<ul id="apps">
 						<li>
-							<a href="<?= base_url('Master/Users')?>"
+							<a href="<?= base_url('Master/Users') ?>"
 								class="<?= $this->uri->segment(2) == "Users"  ? 'active' : '' ?>">
 								<span class=" label">Users</span>
 							</a>
 						</li>
 						<li>
-							<a href="<?= base_url('Master/Kelas')?>"
+							<a href="<?= base_url('Master/Kelas') ?>"
 								class="<?= $this->uri->segment(2) == "Kelas"  ? 'active' : '' ?>">
 								<span class="label">Kelas</span>
 							</a>
 						</li>
 						<li>
-							<a href="<?= base_url('Master/Pendidikan')?>"
+							<a href="<?= base_url('Master/Pendidikan') ?>"
 								class="<?= $this->uri->segment(2) == "Pendidikan"  ? 'active' : '' ?>">
 								<span class="label">Pendidikan</span>
 							</a>
 						</li>
 						<li>
-							<a href="<?= base_url('Master/Dapuan')?>"
+							<a href="<?= base_url('Master/Dapuan') ?>"
 								class="<?= $this->uri->segment(2) == "Dapuan"  ? 'active' : '' ?>">
 								<span class="label">Da'puan</span>
 							</a>
 						</li>
 						<li>
-							<a href="<?= base_url('Master/Kartu')?>"
-								class="<?= $this->uri->segment(2) == "Kartu"  ? 'active' : '' ?>">
+							<a href="#Kartu" data-href="#" class="<?= $this->uri->segment(2) == "Kartu"  ? 'active' : '' ?>">
 								<span class="label">Kartu ID</span>
 							</a>
+							<ul id="Kartu">
+								<li>
+									<a href="<?= base_url('Master/Kartu/Murid'); ?>"
+										class="<?= $this->uri->segment(3) == "Murid"  ? 'active' : '' ?>">
+										<span class="label">Murid</span>
+									</a>
+								</li>
+								<li>
+									<a href="<?= base_url('Master/Kartu/Pengajar'); ?>"
+										class="<?= $this->uri->segment(3) == "Pengajar"  ? 'active' : '' ?>">
+										<span class="label">Pengajar</span>
+									</a>
+								</li>
+								<li>
+									<a href="<?= base_url('Master/Kartu/Pengurus'); ?>"
+										class="<?= $this->uri->segment(3) == "Pengurus"  ? 'active' : '' ?>">
+										<span class="label">Pengurus</span>
+									</a>
+								</li>
+							</ul>
 						</li>
 					</ul>
 				</li>
 				<?php endif; ?>
-				<?php if($user_role == 1 || $user_role == 2): ?>
+				<?php if ($user_role == 1 || $user_role == 2) : ?>
 				<li>
 					<a href="#Pages" data-href="#" class="<?= $this->uri->segment(1) == "Pages"  ? 'active' : '' ?>">
 						<i data-acorn-icon="notebook-1" class="icon" data-acorn-size="18"></i>
@@ -122,20 +141,20 @@
 							</a>
 							<ul id="data">
 								<li>
-									<a href="<?= base_url('Pages/Data/Murid');?>"
+									<a href="<?= base_url('Pages/Data/Murid'); ?>"
 										class="<?= $this->uri->segment(3) == "Murid"  ? 'active' : '' ?>">
 										<span class="label">Murid</span>
 									</a>
 								</li>
-								<?php if($user_role == 1): ?>
+								<?php if ($user_role == 1) : ?>
 								<li>
-									<a href="<?= base_url('Pages/Data/Pengajar');?>"
+									<a href="<?= base_url('Pages/Data/Pengajar'); ?>"
 										class="<?= $this->uri->segment(3) == "Pengajar"  ? 'active' : '' ?>">
 										<span class="label">Pengajar</span>
 									</a>
 								</li>
 								<li>
-									<a href="<?= base_url('Pages/Data/Pengurus');?>"
+									<a href="<?= base_url('Pages/Data/Pengurus'); ?>"
 										class="<?= $this->uri->segment(3) == "Pengurus"  ? 'active' : '' ?>">
 										<span class="label">Pengurus</span>
 									</a>
@@ -150,7 +169,7 @@
 							</a>
 							<ul id="laporan">
 								<li>
-									<a href="<?= base_url('Pages/Laporan/Absensi');?>"
+									<a href="<?= base_url('Pages/Laporan/Absensi'); ?>"
 										class="<?= $this->uri->segment(3) == "Absensi"  ? 'active' : '' ?>">
 										<span class="label">Absensi</span>
 									</a>

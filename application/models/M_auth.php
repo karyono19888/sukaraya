@@ -11,7 +11,7 @@ class M_auth extends CI_Model
 	{
 		if(empty($this->session->userdata('is_login')))
 		{
-			 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert"><b>Perhatian!</b> Anda harus login dahulu!</div>');
+			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert"><b>Perhatian</b> Anda harus login dahulu!</div>');
 		 redirect('Auth');
 	 }
 	}
