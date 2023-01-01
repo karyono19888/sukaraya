@@ -15,12 +15,12 @@
 					<div class="row">
 						<!-- Title Start -->
 						<div class="col-12 col-md-7">
-							<h1 class="mb-0 pb-0 display-4" id="title">Kartu Murid</h1>
+							<h1 class="mb-0 pb-0 display-4" id="title">Kartu Pengajar</h1>
 							<nav class="breadcrumb-container d-inline-block" aria-label="breadcrumb">
 								<ul class="breadcrumb pt-0">
 									<li class="breadcrumb-item"><a href="#">Master</a></li>
 									<li class="breadcrumb-item"><a href="#">Kartu ID</a></li>
-									<li class="breadcrumb-item"><a href="#">Murid</a></li>
+									<li class="breadcrumb-item"><a href="#">Pengajar</a></li>
 								</ul>
 							</nav>
 						</div>
@@ -45,7 +45,7 @@
 											<div class="col">
 												<div class="row gx-2 d-flex align-content-center">
 													<div class="col-12 col-xl d-flex">
-														<div class="d-flex align-items-center lh-1-25">Total Kartu Murid</div>
+														<div class="d-flex align-items-center lh-1-25">Total Kartu Pengajar</div>
 													</div>
 													<div class="col-12 col-xl-auto">
 														<div class="cta-2 text-primary"><?= $total; ?></div>
@@ -121,7 +121,6 @@
 												<th class="text-muted text-uppercase">No</th>
 												<th class="text-muted text-uppercase">ID</th>
 												<th class="text-muted text-uppercase">Nama</th>
-												<th class="text-muted text-uppercase">Kelompok</th>
 												<th class="text-muted text-uppercase">Barcode</th>
 												<th class="text-muted text-uppercase">Foto</th>
 												<th class="text-muted text-uppercase">Status</th>
@@ -135,59 +134,60 @@
 											?>
 											<tr class="align-middle">
 												<td><?= $i++; ?></td>
-												<td><?= $a['murid_kartu_id']; ?></td>
+												<td><?= $a['pengajar_id_card']; ?></td>
 												<td>
 													<div class="d-flex align-items-center me-3">
 														<div class="sw-6 d-inline-block position-relative me-2">
 															<img
-																src="<?= $a['murid_image'] == "" ? 'https://ui-avatars.com/api/?name=' . $a['murid_nama'] . '' : '' . base_url('upload/murid/' . $a['murid_image'] . '') . ''; ?>"
+																src="<?= $a['pengajar_image'] == "" ? 'https://ui-avatars.com/api/?name=' . $a['pengajar_nama'] . '' : '' . base_url('upload/pengajar/' . $a['pengajar_image'] . '') . ''; ?>"
 																class="img-fluid rounded-xl border border-2 border-foreground"
 																alt="thumb" width="100%" />
 														</div>
 														<div class="d-inline-block">
-															<div class="text-primary"><?= $a['murid_nama']; ?></div>
-															<div class="text-muted text-small">Kelas <?= $a['murid_kelas']; ?></div>
+															<div class="text-primary"><?= $a['pengajar_nama']; ?></div>
+															<div class="text-muted text-small">Kelompok <?= $a['pengajar_kelompok']; ?>
+															</div>
 														</div>
 													</div>
 												</td>
-												<td><?= $a['murid_kelompok']; ?></td>
 												<td>
 													<img
-														src="<?= $a['murid_barcode'] == "" ? 'https://ui-avatars.com/api/?name=' . $a['murid_nama'] . '' : '' . base_url('upload/barcode/' . $a['murid_barcode'] . '') . ''; ?>"
+														src="<?= $a['pengajar_barcode'] == "" ? 'https://ui-avatars.com/api/?name=' . $a['pengajar_nama'] . '' : '' . base_url('upload/barcode/' . $a['pengajar_barcode'] . '') . ''; ?>"
 														class="img-fluid rounded-xl" alt="thumb" width="30%" />
 												</td>
 												<td>
 													<img
-														src="<?= $a['murid_image'] == "" ? 'https://ui-avatars.com/api/?name=' . $a['murid_nama'] . '' : '' . base_url('upload/murid/' . $a['murid_image'] . '') . ''; ?>"
-														class="img-fluid rounded-xl" alt="thumb" width="20%" />
+														src="<?= $a['pengajar_image'] == "" ? 'https://ui-avatars.com/api/?name=' . $a['pengajar_nama'] . '' : '' . base_url('upload/pengajar/' . $a['pengajar_image'] . '') . ''; ?>"
+														class="img-fluid rounded-xl" alt="thumb" width="30%" />
 												</td>
 												<td>
-													<?php if ($a['murid_status'] == "Aktif") : ?>
-													<span class="badge bg-primary text-uppercase"><?= $a['murid_status']; ?></span>
+													<?php if ($a['pengajar_status'] == "Aktif") : ?>
+													<span
+														class="badge bg-primary text-uppercase"><?= $a['pengajar_status']; ?></span>
 													<?php else : ?>
-													<span class="badge bg-danger text-uppercase"><?= $a['murid_status']; ?></span>
+													<span class="badge bg-danger text-uppercase"><?= $a['pengajar_status']; ?></span>
 													<?php endif; ?>
 												</td>
 												<td>
 													<button
-														class="btn btn-sm btn-icon btn-icon-start <?= $a['murid_image'] == "" ? 'btn-outline-warning' : 'btn-outline-dark'; ?> mb-2 ms-1 Edit"
+														class="btn btn-sm btn-icon btn-icon-start <?= $a['pengajar_image'] == "" ? 'btn-outline-warning' : 'btn-outline-dark'; ?> mb-2 ms-1 Edit"
 														type="button" data-bs-toggle="modal" data-bs-target="#ModalKelas"
-														data-id="<?= $a['murid_id']; ?>">
+														data-id="<?= $a['pengajar_id']; ?>">
 														<i data-acorn-icon="upload" data-acorn-size="15"></i>
 														<span
-															class="d-none d-xxl-inline-block"><?= $a['murid_image'] == "" ? 'Upload' : 'Edit Foto'; ?></span>
+															class="d-none d-xxl-inline-block"><?= $a['pengajar_image'] == "" ? 'Upload' : 'Edit Foto'; ?></span>
 													</button>
-													<?php if (!empty($a['murid_barcode']) && !empty($a['murid_image'])) : ?>
-													<a href="<?= base_url('Master/Kartu/Murid/DownloadKartu/' . $a['murid_kartu_id']); ?>"
+													<?php if (!empty($a['pengajar_barcode']) && !empty($a['pengajar_image'])) : ?>
+													<a href="<?= base_url('Master/Kartu/Pengajar/DownloadKartu/' . $a['pengajar_id_card']); ?>"
 														class="btn btn-sm btn-icon btn-icon-start btn-outline-primary ms-1 Download"
-														type="button" data-id="<?= $a['murid_kartu_id']; ?>" target="_blank">
+														type="button" data-id="<?= $a['pengajar_id_card']; ?>" target="_blank">
 														<i data-acorn-icon="download" data-acorn-size="15"></i>
 														<span class="d-none d-xxl-inline-block">Download</span>
 													</a>
 													<?php endif; ?>
-													<?php if (empty($a['murid_barcode'])) : ?>
+													<?php if (empty($a['pengajar_barcode'])) : ?>
 													<button class="btn btn-sm btn-icon btn-icon-start btn-outline-dark ms-1 Generate"
-														type="button" data-id="<?= $a['murid_kartu_id']; ?>">
+														type="button" data-id="<?= $a['pengajar_id_card']; ?>">
 														<i data-acorn-icon="code" data-acorn-size="15"></i>
 														<span class="d-none d-xxl-inline-block">Generate Barcode</span>
 													</button>
@@ -218,12 +218,12 @@
 					</div>
 					<div class="modal-body">
 						<form class=" mb-5 tooltip-end-top" id="loginForm" method="POST"
-							action="<?= base_url('Master/Kartu/Murid/UploadFoto'); ?>" enctype="multipart/form-data">
+							action="<?= base_url('Master/Kartu/Pengajar/UploadFoto'); ?>" enctype="multipart/form-data">
 							<div class="mb-3 filled">
 								<input type="file" class="form-control" name="murid_image" id="murid_image"
 									accept="image/png, image/jpeg" required />
 								<small class="text-muted"><i>Maximal size 2MB dan format .png/ .jpeg/ .jpg</i></small>
-								<input type="hidden" id="murid_nik" name="murid_nik">
+								<input type="hidden" id="pengajar_id_card" name="pengajar_id_card">
 							</div>
 							<div class="border-0 pt-0 d-flex justify-content-between align-items-center">
 								<a href="#" class="me-3"></a>
@@ -263,14 +263,14 @@
 			let id = $(this).data('id');
 			$.ajax({
 				type: 'POST',
-				url: '<?= site_url('Master/Kartu/Murid/ViewUpload') ?>',
+				url: '<?= site_url('Master/Kartu/Pengajar/ViewUpload') ?>',
 				data: {
 					id: id
 				},
 				success: function(response) {
 					var data = JSON.parse(response);
 					if (data.success) {
-						$('#murid_nik').val(data.murid_kartu_id);
+						$('#pengajar_id_card').val(data.pengajar_id_card);
 					} else {
 						SweetAlert.fire({
 							icon: 'warning',
@@ -289,7 +289,7 @@
 			let id = $(this).data('id');
 			$.ajax({
 				type: 'POST',
-				url: '<?= site_url('Master/Kartu/Murid/Generate') ?>',
+				url: '<?= site_url('Master/Kartu/Pengajar/Generate') ?>',
 				data: {
 					id: id
 				},
@@ -313,7 +313,7 @@
 						});
 					}
 					setTimeout(() => {
-						window.location.assign('<?= site_url("Master/Kartu/Murid") ?>');
+						window.location.assign('<?= site_url("Master/Kartu/Pengajar") ?>');
 					}, 1500);
 				}
 			});

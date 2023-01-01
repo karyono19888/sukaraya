@@ -1,6 +1,6 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class M_murid_kartu extends CI_Model
+class M_pengurus_kartu extends CI_Model
 {
 	public function __construct()
 	{
@@ -9,23 +9,23 @@ class M_murid_kartu extends CI_Model
 
 	public function DataTableKartuTotal()
 	{
-		return $this->db->get('m_murid')->num_rows();
+		return $this->db->get('m_pengurus')->num_rows();
 	}
 
 	public function DataTableKartuAktif()
 	{
-		return $this->db->get_where('m_murid', ['murid_status' => 'Aktif'])->num_rows();
+		return $this->db->get_where('m_pengurus', ['pengurus_status' => 'Aktif'])->num_rows();
 	}
 
 	public function DataTableKartuTidakAktif()
 	{
-		return $this->db->get_where('m_murid', ['murid_status' => 'Tidak Aktif'])->num_rows();
+		return $this->db->get_where('m_pengurus', ['pengurus_status' => 'Tidak Aktif'])->num_rows();
 	}
 
 	public function DataTableKartu()
 	{
-		$this->db->order_by('murid_barcode', 'asc');
-		return $this->db->get('m_murid');
+		$this->db->order_by('pengurus_id_card', 'asc');
+		return $this->db->get('m_pengurus');
 	}
 
 	public function Generate()
@@ -49,9 +49,9 @@ class M_murid_kartu extends CI_Model
 		$params['savename'] = FCPATH . $config['imagedir'] . $name_Qrcode;
 		$this->ciqrcode->generate($params);
 		$this->db->trans_start();
-		$this->db->where('murid_kartu_id', $id);
-		$this->db->update('m_murid', array(
-			'murid_barcode'    => $name_Qrcode,
+		$this->db->where('pengurus_id_card', $id);
+		$this->db->update('m_pengurus', array(
+			'pengurus_barcode'    => $name_Qrcode,
 		));
 		$this->db->trans_complete();
 		if ($this->db->trans_status() === FALSE) {
@@ -64,14 +64,14 @@ class M_murid_kartu extends CI_Model
 	public function ViewUpload()
 	{
 		$id = $this->input->post('id');
-		$this->db->where('murid_id', $id);
-		$query  = $this->db->get('m_murid');
+		$this->db->where('pengurus_id', $id);
+		$query  = $this->db->get('m_pengurus');
 		if ($query) {
 			$row = $query->row();
 			return json_encode(array(
 				'success'        => true,
-				'murid_id'       => $row->murid_id,
-				'murid_kartu_id' => $row->murid_kartu_id,
+				'pengurus_id'       => $row->pengurus_id,
+				'pengurus_id_card' => $row->pengurus_id_card,
 			));
 		} else {
 			return json_encode(array('success' => false, 'msg' => 'Data tidak ditemukan!'));
@@ -80,14 +80,14 @@ class M_murid_kartu extends CI_Model
 
 	public function UploadFoto()
 	{
-		$murid_image = $_FILES['murid_image']['name'];
-		$murid_nik   = $this->input->post('murid_nik');
-		$old_file = $this->db->get_where('m_murid', ['murid_kartu_id' => $murid_nik])->row_array();
-		$nama_depan = implode(" ", array_slice(explode(" ", $old_file['murid_nama']), 0, 1));
+		$murid_image       = $_FILES['murid_image']['name'];
+		$pengurus_id_card   = $this->input->post('pengurus_id_card');
+		$old_file = $this->db->get_where('m_pengurus', ['pengurus_id_card' => $pengurus_id_card])->row_array();
+		$nama_depan = implode(" ", array_slice(explode(" ", $old_file['pengurus_nama']), 0, 1));
 
-		$config['upload_path']    	= FCPATH . '/upload/murid/';
+		$config['upload_path']    	= FCPATH . '/upload/pengurus/';
 		$config['allowed_types']  	= 'gif|jpg|jpeg|png';
-		$config['file_name']      	= $murid_nik . '_' . $nama_depan;
+		$config['file_name']      	= $pengurus_id_card . '_' . $nama_depan;
 		$config['max_size']       	= 2048; // 2MB
 		$config['overwrite']			= true;
 		$this->upload->initialize($config);
@@ -101,16 +101,16 @@ class M_murid_kartu extends CI_Model
 					Error 	' . $error['error'] . '!
 				</div>
 				');
-			redirect(site_url('Master/Kartu/Murid'));
+			redirect(site_url('Master/Kartu/Pengurus'));
 		} else {
 			$this->db->trans_start();
-			$this->db->where('murid_kartu_id', $murid_nik);
-			$this->db->update('m_murid', array(
-				'murid_image'      => $this->upload->data('file_name'),
+			$this->db->where('pengurus_id_card', $pengurus_id_card);
+			$this->db->update('m_pengurus', array(
+				'pengurus_image'      => $this->upload->data('file_name'),
 			));
 			$this->db->trans_complete();
 			if ($this->db->trans_status()) {
-				unlink(FCPATH . '/upload/murid/' . $old_file['murid_image']);
+				unlink(FCPATH . '/upload/pengurus/' . $old_file['pengurus_image']);
 				$this->upload->data();
 				$this->session->set_flashdata(
 					'message',
@@ -118,20 +118,20 @@ class M_murid_kartu extends CI_Model
 					Tambah foto berhasil!
 				</div>'
 				);
-				redirect(site_url('Master/Kartu/Murid'));
+				redirect(site_url('Master/Kartu/Pengurus'));
 			} else {
 				$this->session->set_flashdata('message', '
 				<div class="alert alert-danger" role="alert">
 				Opps..gagal!
 			 </div>
 			');
-				redirect(site_url('Master/Kartu/Murid'));
+				redirect(site_url('Master/Kartu/Pengurus'));
 			}
 		}
 	}
 
-	public function DataTableMurid($a)
+	public function DataTablePengurus($a)
 	{
-		return $this->db->get_where('m_murid', ['murid_kartu_id' => $a])->row_array();
+		return $this->db->get_where('m_pengurus', ['pengurus_id_card' => $a])->row_array();
 	}
 }
