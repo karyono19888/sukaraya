@@ -225,6 +225,10 @@
 					type: 'POST',
 					url: '<?= site_url('Master/Pendidikan/Tambah') ?>',
 					data: data,
+					beforeSend: function() {
+					$('#ModalButtonSimpan').prop('disabled', true);
+					$('#ModalButtonSimpan').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> loading...')
+				},
 					success: function(response) {
 						var data = JSON.parse(response);
 						if (data.success) {
@@ -312,6 +316,10 @@
 					type: 'POST',
 					url: '<?= site_url('Master/Pendidikan/Edit') ?>',
 					data: data,
+					beforeSend: function() {
+					$('#ModalButtonEdit').prop('disabled', true);
+					$('#ModalButtonEdit').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> loading...')
+				},
 					success: function(response) {
 						var data = JSON.parse(response);
 						if (data.success) {

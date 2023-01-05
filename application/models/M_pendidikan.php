@@ -9,23 +9,23 @@ class M_pendidikan extends CI_Model
 
 	public function DataTablePendidikanTotal()
 	{
-		return $this->db->get('m_pendidikan')->num_rows();
+		return $this->db->get('m_pendidikan2')->num_rows();
 	}
 
 	public function DataTablePendidikanAktif()
 	{
-		return $this->db->get_where('m_pendidikan', ['pend_status' => 'Aktif'])->num_rows();
+		return $this->db->get_where('m_pendidikan2', ['pend_status' => 'Aktif'])->num_rows();
 	}
 
 	public function DataTablePendidikanTidakAktif()
 	{
-		return $this->db->get_where('m_pendidikan', ['pend_status' => 'Tidak Aktif'])->num_rows();
+		return $this->db->get_where('m_pendidikan2', ['pend_status' => 'Tidak Aktif'])->num_rows();
 	}
 
 	public function DataTablePendidikan()
 	{
 		$this->db->order_by('pend_id', 'desc');
-		return $this->db->get('m_pendidikan');
+		return $this->db->get('m_pendidikan2');
 	}
 
 	public function Tambah()
@@ -33,12 +33,12 @@ class M_pendidikan extends CI_Model
 		$pend_nama 		= $this->input->post('pend_nama');
 		$pend_status 	= $this->input->post('pend_status');
 
-		$row = $this->db->get_where('m_pendidikan', ['pend_nama' => $pend_nama])->num_rows();
+		$row = $this->db->get_where('m_pendidikan2', ['pend_nama' => $pend_nama])->num_rows();
 		if ($row > 0) {
 			return json_encode(array('success' => false, 'msg' => 'Input data gagal, Pendidikan sudah ada!'));
 		} else {
 			$this->db->trans_start();
-			$this->db->insert('m_pendidikan', array(
+			$this->db->insert('m_pendidikan2', array(
 				'pend_nama'      => ucwords($pend_nama),
 				'pend_status'    => $pend_status,
 				'created_at'      => time(),
@@ -56,7 +56,7 @@ class M_pendidikan extends CI_Model
 	{
 		$id = $this->input->post('id');
 		$this->db->where('pend_id', $id);
-		$query  = $this->db->get('m_pendidikan');
+		$query  = $this->db->get('m_pendidikan2');
 		if ($query) {
 			$row = $query->row();
 			return json_encode(array(
@@ -75,7 +75,7 @@ class M_pendidikan extends CI_Model
 		$id 		= $this->input->post('id');
 
 		$this->db->trans_start();
-		$this->db->delete('m_pendidikan', array('pend_id' => $id));
+		$this->db->delete('m_pendidikan2', array('pend_id' => $id));
 		$this->db->trans_complete();
 		if ($this->db->trans_status() === FALSE) {
 			return json_encode(array('success' => false, 'msg' => 'Hapus Pendidikan gagal!'));
@@ -92,7 +92,7 @@ class M_pendidikan extends CI_Model
 
 		$this->db->trans_start();
 		$this->db->where('pend_id', $pend_id);
-		$this->db->update('m_pendidikan', array(
+		$this->db->update('m_pendidikan2', array(
 			'pend_nama'      => ucwords($pend_nama),
 			'pend_status'    => $pend_status,
 			'created_at'      => time(),

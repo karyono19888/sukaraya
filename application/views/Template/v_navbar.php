@@ -95,6 +95,12 @@
 							</a>
 						</li>
 						<li>
+							<a href="<?= base_url('Master/Kelompok') ?>"
+								class="<?= $this->uri->segment(2) == "Kelompok"  ? 'active' : '' ?>">
+								<span class="label">Kelompok</span>
+							</a>
+						</li>
+						<li>
 							<a href="<?= base_url('Master/Dapuan') ?>"
 								class="<?= $this->uri->segment(2) == "Dapuan"  ? 'active' : '' ?>">
 								<span class="label">Da'puan</span>
@@ -175,6 +181,20 @@
 									</a>
 								</li>
 							</ul>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#Absen_scan" data-href="#" class="<?= $this->uri->segment(1) == "Scan"  ? 'active' : '' ?>">
+						<i data-acorn-icon="alarm" class="icon" data-acorn-size="18"></i>
+						<span class="label">Scan Absensi</span>
+					</a>
+					<ul id="Absen_scan">
+						<li>
+							<a href="<?= base_url('Scan/ScanBarcode'); ?>" data-href="#"
+								class="<?= $this->uri->segment(2) == "ScanBarcode"  ? 'active' : '' ?>">
+								<span class="label">Scan Barcode</span>
+							</a>
 						</li>
 					</ul>
 				</li>
