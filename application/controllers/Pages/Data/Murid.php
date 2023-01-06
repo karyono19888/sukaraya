@@ -19,7 +19,7 @@ class Murid extends CI_Controller {
 		$data['aktif'] 		= $this->record->totalMuridAktif();
 		$data['tidakaktif'] 	= $this->record->totalMuridTidakAktif();
 		$this->load->view('Template/v_header',$data);
-		$this->load->view('Pages/Data/v_murid',$data);
+		$this->load->view('Pages/Data/Murid/v_murid',$data);
 	}
 
 	public function Pendidikan()
@@ -51,7 +51,7 @@ class Murid extends CI_Controller {
 		$data['aktif'] 		= $this->record->totalMuridAktif();
 		$data['tidakaktif'] = $this->record->totalMuridTidakAktif();
 		$this->load->view('Template/v_header',$data);
-		$this->load->view('Pages/Data/v_showTambahmurid',$data);
+		$this->load->view('Pages/Data/Murid/v_showTambahmurid',$data);
 	}
 
 	public function ShowEditMurid($id)
@@ -62,7 +62,7 @@ class Murid extends CI_Controller {
 		$data['aktif'] 		= $this->record->totalMuridAktif();
 		$data['tidakaktif'] = $this->record->totalMuridTidakAktif();
 		$this->load->view('Template/v_header',$data);
-		$this->load->view('Pages/Data/v_showEditmurid',$data);
+		$this->load->view('Pages/Data/Murid/v_showEditmurid',$data);
 	}
 
 	public function Tambah()

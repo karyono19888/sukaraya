@@ -48,7 +48,7 @@
 														<div class="d-flex align-items-center lh-1-25">Total Pengurus</div>
 													</div>
 													<div class="col-12 col-xl-auto">
-														<div class="cta-2 text-primary">12</div>
+														<div class="cta-2 text-primary"><?= $total; ?></div>
 													</div>
 												</div>
 											</div>
@@ -71,7 +71,7 @@
 														<div class="d-flex align-items-center lh-1-25">Aktif</div>
 													</div>
 													<div class="col-12 col-xl-auto">
-														<div class="cta-2 text-primary">12</div>
+														<div class="cta-2 text-primary"><?= $aktif; ?></div>
 													</div>
 												</div>
 											</div>
@@ -94,7 +94,7 @@
 														<div class="d-flex align-items-center lh-1-25">Tidak Aktif</div>
 													</div>
 													<div class="col-12 col-xl-auto">
-														<div class="cta-2 text-primary">12</div>
+														<div class="cta-2 text-primary"><?= $tidakaktif; ?></div>
 													</div>
 												</div>
 											</div>
@@ -108,11 +108,10 @@
 				</div>
 
 				<!-- Content Start -->
-				<button type="button" class="btn btn-outline-primary btn-icon btn-icon-start mb-3 Tambah"
-					data-bs-toggle="modal" data-bs-target="#ModalUser">
+				<a href="<?= base_url('Pages/Data/Pengurus/ShowTambah');?>" type="button" class="btn btn-outline-primary btn-icon btn-icon-start mb-3" id="Tambah" onclick="Tambah()">
 					<i data-acorn-icon="plus"></i>
 					<span>Tambah Baru</span>
-				</button>
+				</a>
 				<div class="row">
 					<div class="col-sm-12">
 						<div class="card">
@@ -125,15 +124,58 @@
 												<th class="text-muted text-uppercase">No</th>
 												<th class="text-muted text-uppercase">ID</th>
 												<th class="text-muted text-uppercase">Nama</th>
-												<th class="text-muted text-uppercase">Kelas</th>
 												<th class="text-muted text-uppercase">Kelompok</th>
-												<th class="text-muted text-uppercase">Foto</th>
+												<th class="text-muted text-uppercase">Da'puan</th>
 												<th class="text-muted text-uppercase">Status</th>
 												<th class="text-muted text-uppercase">Aksi</th>
 											</tr>
 										</thead>
 										<tbody>
-
+											<?php
+											$i=1;
+													foreach($pengurus->result_array() as $a):
+												?>
+											<tr>
+												<td><?= $i++; ?></td>
+												<td><?= $a['pengurus_id_card']; ?></td>
+												<td>
+													<div class="d-flex align-items-center me-3">
+														<div class="sw-6 d-inline-block position-relative me-2">
+															<img
+																src="<?= $a['pengurus_image'] == "" ? 'https://ui-avatars.com/api/?name=' . $a['pengurus_nama'] . '' : '' . base_url('upload/Pengurus/' . $a['pengurus_image'] . '') . ''; ?>"
+																class="img-fluid rounded-xl border border-2 border-foreground"
+																alt="thumb" width="100%" />
+														</div>
+														<div class="d-inline-block">
+															<div class="text-primary"><?= $a['pengurus_nama']; ?></div>
+															<div class="text-muted text-small"><?= $a['pengurus_jk']; ?>
+															</div>
+														</div>
+													</div>
+												</td>
+												<td><?= $a['kel_nama']; ?></td>
+												<td><?= $a['dapuan_nama']; ?></td>
+												<td>
+													<?php if($a['pengurus_status'] =="Aktif"): ?>
+													<span class="badge bg-primary text-uppercase"><?= $a['pengurus_status']; ?></span>
+													<?php else: ?>
+													<span class="badge bg-danger text-uppercase"><?= $a['pengurus_status']; ?></span>
+													<?php endif; ?>
+												</td>
+												<td>
+													<a href="<?= base_url('Pages/Data/Pengurus/ShowEditPengurus/'.$a['pengurus_id'].'')?>" class="btn btn-sm btn-icon btn-icon-start btn-outline-warning ms-1 Edit"
+														type="button">
+														<i data-acorn-icon="edit-square" data-acorn-size="15"></i>
+														<span class="d-none d-xxl-inline-block">Edit</span>
+													</a>
+													<button class="btn btn-sm btn-icon btn-icon-start btn-outline-danger ms-1 Hapus"
+														type="button" data-id="<?= $a['pengurus_id'];?>">
+														<i data-acorn-icon="bin" data-acorn-size="15"></i>
+														<span class="d-none d-xxl-inline-block">Delete</span>
+													</button>
+												</td>
+											</tr>
+											<?php endforeach; ?>
 										</tbody>
 									</table>
 								</div>
@@ -143,54 +185,6 @@
 					</div>
 				</div>
 				<!-- Content End -->
-			</div>
-			<div class="modal fade" id="ModalUser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-				role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-				<div class="modal-dialog modal-dialog-centered">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="titleTambah">Tambah User Baru</h5>
-							<h5 class="modal-title" id="titleEdit">Edit User</h5>
-							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-						</div>
-						<div class="modal-body">
-							<form method="POST" id="formModalUser">
-								<div class="mb-1">
-									<label class="form-label">Role Akses</label>
-									<select id="user_role" name="user_role" class="form-control" select2>
-										<option value="">- Pilih -</option>
-									</select>
-								</div>
-								<div class="mb-1">
-									<label class="form-label">Nama</label>
-									<input type="text" class="form-control" id="user_nama" name="user_nama"
-										placeholder="Nama Lengkap" />
-								</div>
-								<div class="mb-1">
-									<label class="form-label">Username</label>
-									<input type="text" class="form-control" id="user_username" name="user_username"
-										placeholder="username" />
-								</div>
-								<div class="mb-1">
-									<label class="form-label">Password</label>
-									<input type="password" class="form-control " id="user_password" name="user_password"
-										placeholder="********" />
-								</div>
-								<div class="mb-1">
-									<label class="form-label">Status</label>
-									<select id="user_status" name="user_status" class="form-control">
-										<option selected value="Aktif">Aktif</option>
-										<option value="Tidak Aktif">Tidak Aktif</option>
-									</select>
-								</div>
-							</form>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-primary" id="ModalButtonSimpan">Simpan</button>
-							<button type="button" class="btn btn-warning" id="ModalButtonEdit">Edit</button>
-						</div>
-					</div>
-				</div>
 			</div>
 		</main>
 		<?php $this->load->view('Template/v_footer');  ?>
@@ -202,80 +196,10 @@
 			$('#table').DataTable();
 		});
 
-
-		$(document).on("click", ".Tambah", function() {
-			$('#titleEdit').hide();
-			$('#ModalButtonEdit').hide();
-			$('#titleTambah').show();
-			$('#ModalButtonSimpan').show();
-		})
-
-		$(document).on("click", "#ModalButtonSimpan", function() {
-			if (validasi()) {
-				let data = $('#formModalUser').serialize();
-				$.ajax({
-					type: 'POST',
-					url: '<?= site_url('Master/Users/Tambah') ?>',
-					data: data,
-					success: function(response) {
-						var data = JSON.parse(response);
-						if (data.success) {
-							Swal.fire({
-								icon: 'success',
-								title: 'Success',
-								text: data.msg,
-								showConfirmButton: false,
-								timer: 1500
-							});
-						} else {
-							Swal.fire({
-								icon: 'error',
-								title: 'Error',
-								text: data.msg,
-								showConfirmButton: true,
-								timer: 2000
-							});
-						}
-						setTimeout(() => {
-							window.location.assign('<?= site_url("Master/Users") ?>');
-						}, 2000);
-					}
-				});
-			}
-		});
-
-		function validasi() {
-			let user_role = document.getElementById("user_role").value;
-			let user_nama = document.getElementById("user_nama").value;
-			let user_username = document.getElementById("user_username").value;
-			let user_password = document.getElementById("user_password").value;
-			let user_status = document.getElementById("user_status").value;
-			if ((user_role == "") || (user_username == "") || (user_nama == "") || (user_password ==
-					"") || (user_status ==
-					"")) {
-				if (user_status == "") {
-					notif("Status");
-				}
-				if (user_password == "") {
-					notif("Password");
-				}
-				if (user_username == "") {
-					notif("Username");
-				}
-				if (user_role == "") {
-					notif("User Akses");
-				}
-			} else {
-				return true;
-			}
-		}
-
-		function notif(word) {
-			Swal.fire({
-				title: 'Perhatian',
-				text: word + ' wajib di isi !',
-				icon: 'info',
-			}).then((result) => {})
+		function Tambah() {
+			let element = document.getElementById("Tambah");
+			element.classList.add("disabled");
+			$('#Tambah').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> loading...')
 		}
 
 		$(document).on("click", ".Hapus", function() {
@@ -293,7 +217,7 @@
 				if (result.isConfirmed) {
 					$.ajax({
 						type: 'POST',
-						url: '<?= site_url('Master/Users/Hapus') ?>',
+						url: '<?= site_url('Pages/Data/Pengurus/Hapus') ?>',
 						data: {
 							id: id
 						},
@@ -317,7 +241,7 @@
 								});
 							}
 							setTimeout(() => {
-								window.location.assign('<?= site_url("Master/Users") ?>');
+								window.location.assign('<?= site_url("Pages/Data/Pengurus") ?>');
 							}, 2000);
 						}
 					});

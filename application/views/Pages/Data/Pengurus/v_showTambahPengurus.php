@@ -15,17 +15,17 @@
 					<div class="row">
 						<!-- Title Start -->
 						<div class="col-12">
-                            <a class="nav-link active px-0 float-end" href="<?= base_url('Pages/Data/Murid');?>">
+                            <a class="nav-link active px-0 float-end" href="<?= base_url('Pages/Data/Pengurus');?>">
                                 <i data-acorn-icon="arrow-left" class="me-2" data-acorn-size="17"></i>
                                 <span class="align-middle">Kembali</span>
                             </a>
-							<h1 class="mb-0 pb-0 display-4" id="title">Tambah Murid Baru</h1>
+							<h1 class="mb-0 pb-0 display-4" id="title">Tambah Pengurus Baru</h1>
 							<nav class="breadcrumb-container d-inline-block" aria-label="breadcrumb">
 								<ul class="breadcrumb pt-0">
 									<li class="breadcrumb-item"><a href="#">Pages</a></li>
 									<li class="breadcrumb-item"><a href="#">Data</a></li>
-									<li class="breadcrumb-item"><a href="#">Murid</a></li>
-									<li class="breadcrumb-item"><a href="#">Tambah Murid Baru</a></li>
+									<li class="breadcrumb-item"><a href="#">Pengurus</a></li>
+									<li class="breadcrumb-item"><a href="#">Tambah Pengurus Baru</a></li>
 								</ul>
 							</nav>
 						</div>
@@ -50,7 +50,7 @@
 											<div class="col">
 												<div class="row gx-2 d-flex align-content-center">
 													<div class="col-12 col-xl d-flex">
-														<div class="d-flex align-items-center lh-1-25">Total Murid</div>
+														<div class="d-flex align-items-center lh-1-25">Total Pengurus</div>
 													</div>
 													<div class="col-12 col-xl-auto">
 														<div class="cta-2 text-primary"><?= $total; ?></div>
@@ -117,62 +117,45 @@
 					<div class="col-sm-6">
 						<div class="card">
                             <div class="card-header">
-                                EDIT NO ID : <b><?= $data['murid_kartu_id']; ?></b>
+                                NO ID : <b><?= $kode; ?></b>
                             </div>
 							<div class="card-body">
                             <form method="POST" id="formModalUser">
 								<div class="mb-1">
 									<label class="form-label">Nama</label>
-									<input type="text" class="form-control" id="murid_nama" name="murid_nama"
-										placeholder="Nama Lengkap" value="<?= $data['murid_nama']; ?>" />
-									<input type="hidden" class="form-control" id="murid_kartu_id" name="murid_kartu_id" value="<?= $data['murid_kartu_id']; ?>" />
+									<input type="text" class="form-control" id="pengurus_nama" name="pengurus_nama"
+										placeholder="Nama Lengkap" />
+									<input type="hidden" class="form-control" id="pengurus_id_card" name="pengurus_id_card" value="<?= $kode; ?>" />
 								</div>
 								<div class="mb-1">
 									<label class="form-label">Jenis Kelamin</label>
-									<select id="murid_jk" name="murid_jk" class="form-control" select2>
-										<option value="<?= $data['murid_jk']; ?>"><?= $data['murid_jk']; ?></option>
+									<select id="pengurus_jk" name="pengurus_jk" class="form-control" select2>
+										<option value="">- Pilih -</option>
 										<option value="Laki-laki">Laki-laki</option>
 										<option value="Perempuan">Perempuan</option>
 									</select>
 								</div>
 								<div class="mb-1">
-									<label class="form-label">Tanggal Lahir</label>
-									<input type="date" class="form-control" id="murid_tgl_lahir" name="murid_tgl_lahir" value="<?= $data['murid_tgl_lahir']; ?>"
-									/>
-								</div>
-								<div class="mb-1">
-									<label class="form-label">Pendidikan</label>
-									<select id="murid_pendidikan" name="murid_pendidikan" class="form-control" >
-										<option value="<?= $data['pend_id']; ?>"><?= $data['pend_nama']; ?></option>
-									</select>
-								</div>
-								<div class="mb-1">
-									<label class="form-label">Kelas</label>
-									<select id="murid_kelas" name="murid_kelas" class="form-control" select2>
-										<option value="<?= $data['kelas_id']; ?>"><?= $data['kelas_nama']; ?></option>
-									</select>
-								</div>
-								<div class="mb-1">
 									<label class="form-label">Kelompok</label>
-									<select id="murid_kelompok" name="murid_kelompok" class="form-control" select2>
-										<option value="<?= $data['kel_id']; ?>"><?= $data['kel_nama']; ?></option>
+									<select id="pengurus_kelompok" name="pengurus_kelompok" class="form-control" select2>
+										<option value="">- Pilih -</option>
 									</select>
 								</div>
 								<div class="mb-1">
-									<label class="form-label">Nama Wali</label>
-									<input type="text" class="form-control" id="murid_wali" name="murid_wali"
-									placeholder="Nama Lengkap Wali" value="<?= $data['murid_wali']; ?>"/>
+									<label class="form-label">Da'puan</label>
+									<select id="pengurus_dapuan" name="pengurus_dapuan" class="form-control" select2>
+										<option value="">- Pilih -</option>
+									</select>
 								</div>
 								<div class="mb-1">
 									<label class="form-label">Nomor HP Wali</label>
-									<input type="Number" class="form-control" id="murid_no_wali" name="murid_no_wali"
-									placeholder="contoh : 08123456789" value="<?= $data['murid_no_wali']; ?>" />
+									<input type="Number" class="form-control" id="pengurus_no_tlpn" name="pengurus_no_tlpn"
+									placeholder="contoh : 08123456789" />
 								</div>
 								<div class="mb-1">
 									<label class="form-label">Status</label>
-									<select id="murid_status" name="murid_status" class="form-control">
-										<option value="<?= $data['murid_status']; ?>"><?= $data['murid_status']; ?></option>
-										<option value="Aktif">Aktif</option>
+									<select id="pengurus_status" name="pengurus_status" class="form-control">
+										<option selected value="Aktif">Aktif</option>
 										<option value="Tidak Aktif">Tidak Aktif</option>
 									</select>
 								</div>
@@ -184,8 +167,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-grid gap-2 mx-auto">
-                                    <button type="button" class="btn btn-warning" id="ModalButtonSimpan">Edit Simpan</button>
-                                    <a href="<?= base_url('Pages/Data/Murid');?>" class="btn btn-dark" type="button" id="Kembali" onclick="Kembali()">Kembali</a>
+                                    <button type="button" class="btn btn-primary" id="ModalButtonSimpan">Simpan</button>
+                                    <a href="<?= base_url('Pages/Data/Pengurus');?>" class="btn btn-dark" type="button" id="Kembali" onclick="Kembali()">Kembali</a>
                                 </div>
                             </div>
                         </div>
@@ -208,58 +191,36 @@
 			element.classList.add("disabled");
 			$('#Kembali').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> loading...')
 		}
-	// pendidikan
-	$(document).ready(function() {
-		$("#murid_pendidikan").select2({
-			theme: "bootstrap4",
-			ajax: {
-				url: '<?= base_url('Pages/Data/Murid/Pendidikan') ?>',
-				type: "post",
-				dataType: 'json',
-				delay: 200,
-				data: function(params) {
-					return {
-						searchTerm: params.term
-					};
-				},
-				processResults: function(response) {
-					return {
-						results: response
-					};
-				},
-				cache: true
-			}
-		});
-	});
-	// kelas
-	$(document).ready(function() {
-		$("#murid_kelas").select2({
-			theme: "bootstrap4",
-			ajax: {
-				url: '<?= base_url('Pages/Data/Murid/Kelas') ?>',
-				type: "post",
-				dataType: 'json',
-				delay: 200,
-				data: function(params) {
-					return {
-						searchTerm: params.term
-					};
-				},
-				processResults: function(response) {
-					return {
-						results: response
-					};
-				},
-				cache: true
-			}
-		});
-	});
+
 	// kelompok
 	$(document).ready(function() {
-		$("#murid_kelompok").select2({
+		$("#pengurus_kelompok").select2({
 			theme: "bootstrap4",
 			ajax: {
-				url: '<?= base_url('Pages/Data/Murid/Kelompok') ?>',
+				url: '<?= base_url('Pages/Data/Pengurus/Kelompok') ?>',
+				type: "post",
+				dataType: 'json',
+				delay: 200,
+				data: function(params) {
+					return {
+						searchTerm: params.term
+					};
+				},
+				processResults: function(response) {
+					return {
+						results: response
+					};
+				},
+				cache: true
+			}
+		});
+	});
+	// dapuan
+	$(document).ready(function() {
+		$("#pengurus_dapuan").select2({
+			theme: "bootstrap4",
+			ajax: {
+				url: '<?= base_url('Pages/Data/Pengurus/Dapuan') ?>',
 				type: "post",
 				dataType: 'json',
 				delay: 200,
@@ -283,7 +244,7 @@
             let data = $('#formModalUser').serialize();
             $.ajax({
                 type: 'POST',
-                url: '<?= site_url('Pages/Data/Murid/Edit') ?>',
+                url: '<?= site_url('Pages/Data/Pengurus/Tambah') ?>',
                 data: data,
 				beforeSend: function() {
 					$('#ModalButtonSimpan').prop('disabled', true);
@@ -309,7 +270,7 @@
                         });
                     }
                     setTimeout(() => {
-                        window.location.assign('<?= site_url("Pages/Data/Murid") ?>');
+                        window.location.assign('<?= site_url("Pages/Data/Pengurus") ?>');
                     }, 2000);
                 }
             });
@@ -317,43 +278,30 @@
     });
 
     function validasi() {
-        let murid_nama = document.getElementById("murid_nama").value;
-        let murid_jk = document.getElementById("murid_jk").value;
-        let murid_tgl_lahir = document.getElementById("murid_tgl_lahir").value;
-        let murid_pendidikan = document.getElementById("murid_pendidikan").value;
-        let murid_kelompok = document.getElementById("murid_kelompok").value;
-        let murid_wali = document.getElementById("murid_wali").value;
-        let murid_no_wali = document.getElementById("murid_no_wali").value;
-        let murid_kelas = document.getElementById("murid_kelas").value;
-        let murid_status = document.getElementById("murid_status").value;
-        if ((murid_nama == "") || (murid_tgl_lahir == "") || (murid_jk == "") || (murid_pendidikan ==
-                "") || (murid_kelompok =="") || (murid_wali =="") || (murid_no_wali =="") || (murid_kelas =="") || (murid_status =="")) {
-            if (murid_status == "") {
+        let pengurus_nama = document.getElementById("pengurus_nama").value;
+        let pengurus_jk = document.getElementById("pengurus_jk").value;
+        let pengurus_kelompok = document.getElementById("pengurus_kelompok").value;
+        let pengurus_dapuan = document.getElementById("pengurus_dapuan").value;
+        let pengurus_no_tlpn = document.getElementById("pengurus_no_tlpn").value;
+        let pengurus_status = document.getElementById("pengurus_status").value;
+        if ((pengurus_nama == "") || (pengurus_jk == "")  || (pengurus_kelompok =="") || (pengurus_dapuan =="") || (pengurus_no_tlpn =="") || (pengurus_status =="")) {
+            if (pengurus_status == "") {
                 notif("Status");
             }
-            if (murid_kelas == "") {
-                notif("Kelas");
+            if (pengurus_no_tlpn == "") {
+                notif("Nomor Hp");
             }
-            if (murid_no_wali == "") {
-                notif("Nomor Hp Wali");
-            }
-            if (murid_wali == "") {
-                notif("Nama Wali");
-            }
-            if (murid_kelompok == "") {
+            if (pengurus_kelompok == "") {
                 notif("kelompok");
             }
-            if (murid_pendidikan == "") {
-                notif("Pendidikan");
+            if (pengurus_dapuan == "") {
+                notif("Da'puan");
             }
-            if (murid_tgl_lahir == "") {
-                notif("Tanggal Lahir");
-            }
-            if (murid_jk == "") {
+            if (pengurus_jk == "") {
                 notif("Jenis Kelamin");
             }
-            if (murid_nama == "") {
-                notif("Nama Murid");
+            if (pengurus_nama == "") {
+                notif("Nama Pengajar");
             }
         } else {
             return true;
